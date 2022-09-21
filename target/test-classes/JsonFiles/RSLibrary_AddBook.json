@@ -1,0 +1,6 @@
+{
+    "name": "Testing Static Payload",
+    "isbn": "RSCourseLibrary123",
+    "aisle": "6543210",
+    "author": "SDET Tester"
+}

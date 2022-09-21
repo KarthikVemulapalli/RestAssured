@@ -1,0 +1,39 @@
+{
+	"instructor": "Karthik Learnings",
+	"url": "https://www.google.com/",
+	"services": "Testing, Learning, Playing",
+	"expertise": "SDET Automation Tester",
+	"courses": {
+		"webAutomation": [
+			{
+			"courseTitle" : "Selenium WebDriver",
+			"price": "10"
+			},
+			{
+			"courseTitle" : "Selenium Grid",
+			"price": "5"
+			},
+			{
+			"courseTitle" : "UI Automation",
+			"price": "3"
+			}
+		],
+		"api": [
+			{
+			"courseTitle" : "POSTMAN",
+			"price": "15"
+			},
+			{
+			"courseTitle" : "RestAssured",
+			"price": "12"
+			}
+		],
+		"mobile" : [
+			{
+			"courseTitle" : "Appium",
+			"price": "2"
+			}
+		]
+	},
+	"linkedIn": "https://www.linkedIn.com/karthikSDET/"
+}

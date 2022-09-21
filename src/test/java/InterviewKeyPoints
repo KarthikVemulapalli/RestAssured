@@ -1,0 +1,188 @@
+API (Application Programming Interface)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+API Definition: API is an Interface or Communication Protocol between client and server intended to simplify the building of client-side software. It has been described as a 'contract' between client aand server.
+
+Why API's are Required:
+	1.In Scenarios where Client and Server belongs to same organization are developed using same programming language, then there will be no compulsory in API usage. This Interaction will be secure because it belongs to same organization.
+	2.But scenarios where Client and Server are developed using different programming languages the API will be useful to minimize the programming language architecture interaction gap.
+	3.In scenarios where an organization want to interact with the Back End Code of other Organization to fetch details. API's aare useful to keep the code hidden and secured.
+
+Note:
+	* API Automation with 'REST ASSURED' library using JAVA Programming Language.
+	* Web Automation with 'SELENIUM' library using JAVA Programming Language.
+	* Rest Assured is a library written in Java programming language. Rest Assured is mostly used used library for API Automation using Java.
+	* All Applications Consists of Client(Front End UI), Server(Functionality Code) & Database.
+	* Using API's we can establish secure interaction with 3rd parties, fetch require data/information, perform various operations on database without having any Web UI.
+	* API is also clled as 'Middle Tier Layer' between client and server.
+	* All API's are stored in the Organisation's server. If specified API is hit by a third party, this API will call the Back End Code and sends response to the party requested.
+	* API is created in such a way, it is independent of any language. This is achieved by using 'http Protocol' request & response. 
+		Reason: http protocol is also independent of any language.
+	* The http protocol request & response of Client is sent & received in a specified format. The formats used are JSON or XML (JSON and XML are nothing but a representation of data in Specific format). These formats are independent of any language.
+		Reason: These JSON or XML formats are independent of any language because, every prograamming language has libraries to parse JSON and XML formats.
+	* Client request is sent in JSON or XML data format over http Protocol, this requests hits the API. Then the API will call the Back End Code and send response to client over http protocol.
+	* For third party organizations requires data/information of specified organization. The API's are exposed to the third party in order to get data/information.s
+
+Architecture Flow:
+	1.Client (Front End) sends http protocol request and hits API. Here data is sent in JSON or XML.
+	2.API calls the specific method/ Server (code) 
+	3.The code/method fetches required data and sends to API {from backend database}
+	4.Then API returns back data to Client using http protocol response. The response is sent in JSON or XML.
+	5.The Client will parse the JSON or XML and display it to user in front-end (Every language have libraries to parse JSON and XML format data).
+
+Rest API (Rest WebServices) vs SOAP API (SOAP WebServices):
+	1.Rest and SOAP are architectural designs standard in creating API's.
+	2.Rest is the latest and SOAP architectural designed is followed from ages.
+	3.SOAP design has many conditions, restrictions that provides tight authorizations, authentications. Whereas Rest is a light weight protocol which is flexible architecture.
+	4.SOAP API is more secured then Rest API.
+	5.Rest API is easy to Build & Maintain than SOAP API.
+
+Manual API Testing:
+	API - application Programming Interface.
+	Rest & SOAP are architectural designs for API creation.
+	API request & response are done over http protocol.
+
+Terminologies
+	End Point/Base URL - Where API is hosted.
+	Crud Operations (http Methods):
+		POST (Create) - Send data to Server.
+		GET (Retrieve) - Retrieve Data from the Server.
+		PUT (Update) - Update existing data on Server.
+		DELETE (Delete) - Delete existing data on Server.
+	Resources - Represent API/Collection which can be accessed from the server.
+	*Base URL & Resources are mandatory to hit any API.
+	Parameters:
+		Path Parameters - Point a specific resource (sub resource) within a collection. Add '/' to add sub resource.
+		Query Parameters - Filter set of resorces within a collection. Add '?' to add query parameter after resource. Query parameters are separated by '&'.
+	Request URL Basic Syntax - "Base URL + Resource + Query/Path Parameter"
+	Headers: Additional data we are sending to hit an API
+	* Path parameter acts as a sub Resource, where under resource we search for specific object.
+	* Query parameter used to fetch set of Objects. Acts like under specific resource we retrieve certain set of Objects.
+	* Before testing an API, we need to get the API contract (details like Base URL, Resource, Parameters, http Method, JSON body, Expected response).
+	* Only for GET http no body is required. For remaining http request methods the body must be provided.
+
+POSTMAN:
+	Workspace - Personal, Public, Team, Private
+	Collections
+	API Request creation
+
+	Environment: Customizing the API requests to work in different environments (QA, UAT, Prod...). This contains set of variables having data passed in API requests.
+	Variables: Global, Collection, Environment, data, local.
+		Variables Preference Order - Global<Collection<Environment<data<local (In case if same name variable is present)
+
+	Scripting in POSTMAN:
+		POSTMAN contains a powerful runtime based on Node.js
+		API Request Execution Order: Request(pre-request script)-> Request > Response -> Request(test script)
+		JSON Body build or prequesities scripting done in pre-request tab.
+		Assertions, Validations, Chaining scripting done in Tests tab.
+
+	POSTMAN Object (pm): This object provides access to request, response, variables.
+
+
+POSTMAN API Validations using Utilities: (For additional queries we can refer POSTMAN documentation for Chai Assertions)
+	Request Body, Response Status Code, Response time, Response body Json Schema, Certain property in Response body , Response body property value, Text present anywhere in entire response body.
+	Certain response header, request headers		
+
+
+OAuth 2.0: It is an industry-standard protocol for Authorization. This comes with multiple Grant types.
+	Most commonly used grant types are 'Authorization Code' and 'Client Credentials'
+	Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
+	
+	Flow Overview:
+	1.User Enter Login credentials of Gmail and Click submit.
+	2.Google sents a temporary intermediate code.
+	3.Using this token BookMyShow request the profile details to create/login into account.
+	4.If this intermediate code is valid google share the customer profile details along with temporary Access token.
+	5.This access token gets expired within sometime/when user logs out. 
+	6.All the activities are perfomed in browser using this Access token.
+
+
+Newman Reporting - It is a command line collection runner for POSTMAN
+	Installation:
+	1.Install Node.js in Windows System (this will install Node.js & npm)
+	Open Command Prompt.
+	2.To check current node version installed in system use command 'node -v'
+	3.Install newman 'npm install -g newman'.
+	4.Install newman advanced HTML reporting 'npm install -g newman-reporter-htmlextra'
+	
+	Example: To generate newman advanced HTML reporting using command prompt (for other additional function commands please refer newman-reporter-htmlextra documentation)
+		command - newman run "Collection Path Stored in System" -e "Environment Path Stored in System" --folder "Execute Specific Folder in Collection" -r htmlextra --reporter-htmlextra-browserTitle "HTML Browser Title" --reporter-htmlextra-Title "HTML Report Title"
+			'-e' 					-> Used to provide Environment Variables
+			'-g' 					-> Used to provide global variables
+			'--folder'				-> Used to run specific folder in Collection
+			'-r htmlextra'				-> For advanced HTML reporting
+			'--reporter-htmlextra-browserTitle'	-> Browser Title Name
+			'--reporter-htmlextra-Title'		-> Report Title Heading
+	Note: Execute the above mention command in specific directory in command prompt, so that there will be a new folder 'newman' gets created. Inside this newman folder you can find the html report.
+
+
+Integration With Jenkins:
+	Installation:
+	1.Navigate to Jenkins official website, download 'Generic Java Package (.war)'
+	2.For installation/running jenkins use following command in cmd. Run the command where jenkins.war file is present 'java -jar jenkins.war'.
+	3.Wait till success message displayed 'Completed initialization' message.
+	3.In browser launch the 'localhost:8080' (Jenkins will launch in default port i.e. 8080)
+	4.Configure all the suggested plugins through browser (this may take time).
+
+
+Team Collaboration (Similar to Git):
+	1.If multiple people want to make modify/add changes in a collection.
+	2.Create a 'fork'(branch) to the parent collection and provide access to the specific person.
+	3.After the person modify/add changes. He creates a 'Pull Request' to merge changes to parent collection. During creating pull request we can assign Reviewer.
+	4.Reviewer takes a look and accepts the pull request.
+	5.Once approved the merge option enables in the collection fork. The person added the changes then merge the code to the parent collection.
+	6.During merge we get an option of keeping the fork/deleting the fork.
+
+
+Server Codes & Description: 400 Series - User Errors; 500 Series - Server Errors
+	1.200 OK - Request Accepted
+	2.201 - Created
+	3.204 - No Content
+	4.400 - Bad Request
+	5.401 - UnAuthorized
+	6.403 - Forbidden
+	7.404 - Not Found
+	8.500 - International Server Error
+
+
+Rest Assured:
+	* RestAssured is a library to automate API testing using Java programming language.
+	* Main focus on RestAssured is about creating the request payload to hit the API. And parsing the response payload to validate the API.
+	* Dependencies required - RestAssured, Hamcrest
+	* The complete testing depends on three static methods given(), when(), then(). From package 'import static io.restassured.RestAssured.*'
+		By using only given(), when() we can get the response of API. And then() is used for assigning assert validations.
+	* Validation is done using TestNG assertions/ Hamcrest matchers.
+
+	Ways we create our API request payload:
+		1.Send it directly as String variable
+		2.Send it via String return type method (Similar to string variable, but we can pass dynamic values to desired API members).
+		3.Send data in request payload using TestNG @dataProvider annotation.
+		4.Send it via '.json' (data stored in Json format) file convert to bytes format and finally converting it to String.
+		5.Serialization - Sending Java class object as request payload in given() method, this is constructed with support of the POJO (Plain Old Java Object) Classes.
+			POJO Class creation - we create the API members as private variables and create Setter & Getter methods (Internally java converts the class object into Json format).
+		  
+	Ways we validate the API response payload:
+		1.We get the response of API using given(), when() static methods in String (asString()) format. Convert this string into Json and with help of Json path we retrieve values and validate.
+		2.Directly get the response of API using given(), when() static methods in Json (jsonPath()) format. With help of Json path we retrieve values and validate.
+		3.De-Serialization - Create POJO Class and Response Payload will be provided as Class Object, we can get the API k values using getter() methods.
+			
+	* If we observe for Serialization setter() methods are handy to pass value. In De-Serialization getter() methods are handy to retrieve values.
+	* Additional dependencies/libraries in classpath required for POJO class method testing,
+		For JSON - Jackson, Jackson2, Gson or Johnzon
+		For XML - JAXB
+	* After creating classes for all Json & Nested Json payload API. We need to mention explictly in given() as 'expect().defaultParser(Parser.JSON)' because the output we require in Json format.
+		The condition 'expect().defaultParser(Parser.JSON)' is not required if one of the request header is 'content-type: application/json'. Becuase this header automatically helps in giving output in Json format.
+
+	Authentication:
+		1.Key based (In header we pass the Key, to get API response)
+		2.Cookie based
+		3.OAuth 2.0
+
+	OAuth 2.0: 
+		* It is an industry-standard protocol for Authorization. This comes with multiple Grant types.
+		* Most commonly used grant types are 'Authorization Code' and 'Client Credentials'
+			Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
+	
+	* RestAssured will not accept special characters converts them into numerical, so we need to use function 'urlEncodingEnabled()' this will make accept as Special characters.
+	
+	
