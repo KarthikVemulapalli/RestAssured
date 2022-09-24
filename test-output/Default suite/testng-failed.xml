@@ -3,11 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="RSCourse_Library.RSLibrary_AddBookStaticPayload">
+      <class name="RSCourse_ECommerce.TestRunner">
         <methods>
-          <include name="apiAddBookStaticBody"/>
+          <include name="ExecutionFlow"/>
+          <include name="BeforeTest"/>
+          <include name="AfterTest"/>
+          <include name="BeforeSuite"/>
+          <include name="AfterSuite"/>
         </methods>
-      </class> <!-- RSCourse_Library.RSLibrary_AddBookStaticPayload -->
+      </class> <!-- RSCourse_ECommerce.TestRunner -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -1,0 +1,18 @@
+{
+    "_id": "&AccountLogin_RsB_UserID&",
+    "product": {
+        "_id": "&AddProduct_RsB_ProductID&",
+        "productName": "StormBreaker",
+        "productCategory": "fashion",
+        "productSubCategory": "shirts",
+        "productPrice": 8666,
+        "productDescription": "StormBreaker",
+        "productImage": "https://rahulshettyacademy.com/api/ecom/uploads/productImage_1650649434146.jpeg",
+        "productRating": "0",
+        "productTotalOrders": "0",
+        "productStatus": true,
+        "productFor": "men",
+        "productAddedBy": "&LoginCred_Username&",
+        "__v": 0
+    }
+}

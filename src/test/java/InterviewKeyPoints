@@ -78,10 +78,12 @@ POSTMAN:
 
 	POSTMAN Object (pm): This object provides access to request, response, variables.
 
-
-POSTMAN API Validations using Utilities: (For additional queries we can refer POSTMAN documentation for Chai Assertions)
-	Request Body, Response Status Code, Response time, Response body Json Schema, Certain property in Response body , Response body property value, Text present anywhere in entire response body.
-	Certain response header, request headers		
+	POSTMAN API Validations using Utilities: (For additional queries we can refer POSTMAN documentation for Chai Assertions)
+		Request Body, Response Status Code, Response time, Response body Json Schema, Certain property in Response body , Response body property value, Text present anywhere in entire response body.
+		Certain response header, request headers
+	
+	* We can send local files through API request payload, this can be achieved only through'form-data' format.
+	* Through JSON we can send files using http links, but we can send files from local system in JSON. 	
 
 
 OAuth 2.0: It is an industry-standard protocol for Authorization. This comes with multiple Grant types.
@@ -184,5 +186,4 @@ Rest Assured:
 			Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
 	
 	* RestAssured will not accept special characters converts them into numerical, so we need to use function 'urlEncodingEnabled()' this will make accept as Special characters.
-	
 	
