@@ -121,7 +121,8 @@ Newman Reporting - It is a command line collection runner for POSTMAN
 Integration With Jenkins:
 	Installation:
 	1.Navigate to Jenkins official website, download 'Generic Java Package (.war)'
-	2.For installation/running jenkins use following command in cmd. Run the command where jenkins.war file is present 'java -jar jenkins.war'.
+	2.For installation/running jenkins use following command in cmd. Run the command where jenkins.war file is present 
+		java -jar jenkins.war
 	3.Wait till success message displayed 'Completed initialization' message.
 	3.In browser launch the 'localhost:8080' (Jenkins will launch in default port i.e. 8080)
 	4.Configure all the suggested plugins through browser (this may take time).
@@ -186,4 +187,8 @@ Rest Assured:
 			Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
 	
 	* RestAssured will not accept special characters converts them into numerical, so we need to use function 'urlEncodingEnabled()' this will make accept as Special characters.
+	* To ByPass SSL Certifications using RestAssured, we can call a method 'relaxedHTTPSValidation' under given().
+	* SessionFilter is a shortcut class created in RestAssured to store the session details of any response. The syntax will be with given() method '.filter(SessionFilter ClassObject)'. The same object can be used by other API to pass the session value.
+	* If we are sending the data in json format, we need to send value of Content-Type header as 'application/json'.
+	* If we are sending any file data, we need to send value of Content-Type header as 'multipart/form-data'.
 	
