@@ -158,9 +158,10 @@ Rest Assured:
 
 	Ways we create our API request payload:
 		1.Send it directly as String variable
-		2.Send it via String return type method (Similar to string variable, but we can pass dynamic values to desired API members).
+		2.Send it via String return type method (We have option to pass dynamic values to desired API members).
 		3.Send data in request payload using TestNG @dataProvider annotation.
 		4.Send it via '.json' (data stored in Json format) file convert to bytes format and finally converting it to String.
+			Ex: String AddBook_StringResponse = new String(Files.readAllBytes(Paths.get(AddBook_JsonFilePath)));
 		5.Serialization - Sending Java class object as request payload in given() method, this is constructed with support of the POJO (Plain Old Java Object) Classes.
 			POJO Class creation - we create the API members as private variables and create Setter & Getter methods (Internally java converts the class object into Json format).
 		  
