@@ -1,11 +1,9 @@
 package RSCourse_Maps;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 import APIDataStore.RSMaps_Payload;
-
 
 public class RSMaps_AddPlace {
 

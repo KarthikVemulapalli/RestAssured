@@ -91,12 +91,12 @@ OAuth 2.0: It is an industry-standard protocol for Authorization. This comes wit
 	Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
 	
 	Flow Overview:
-	1.User Enter Login credentials of Gmail and Click submit.
-	2.Google sents a temporary intermediate code.
-	3.Using this token BookMyShow request the profile details to create/login into account.
-	4.If this intermediate code is valid google share the customer profile details along with temporary Access token.
-	5.This access token gets expired within sometime/when user logs out. 
-	6.All the activities are perfomed in browser using this Access token.
+		1.User Enter Login credentials of Gmail and Click submit. Request consists of ClientID (can be observed in URL) and Client SecretID.
+		2.Google give response with a temporary intermediate code.
+		3.Using this intermediate code BookMyShow request the profile details to create/login into account.
+		4.If this intermediate code is valid google share the customer profile details along with temporary Access token.
+		5.This access token gets expired within sometime/when user logs out. 
+		6.All the activities are performed in browser using this Access token.
 
 
 Newman Reporting - It is a command line collection runner for POSTMAN
@@ -153,7 +153,9 @@ Rest Assured:
 	* Main focus on RestAssured is about creating the request payload to hit the API. And parsing the response payload to validate the API.
 	* Dependencies required - RestAssured, Hamcrest
 	* The complete testing depends on three static methods given(), when(), then(). From package 'import static io.restassured.RestAssured.*'
-		By using only given(), when() we can get the response of API. And then() is used for assigning assert validations.
+		- given() we provide all the input data
+		- when() submit the API and get the response of API
+		- then() is used for assigning assert validations.
 	* Validation is done using TestNG assertions/ Hamcrest matchers.
 
 	Ways we create our API request payload:
@@ -181,6 +183,7 @@ Rest Assured:
 		1.Key based (In header we pass the Key, to get API response)
 		2.Cookie based
 		3.OAuth 2.0
+			* Example for OAuth 2.0 is SignUp/SignIn using google or facebook credentials without actually creating an account in the particular website.
 
 	OAuth 2.0: 
 		* It is an industry-standard protocol for Authorization. This comes with multiple Grant types.
@@ -192,4 +195,114 @@ Rest Assured:
 	* SessionFilter is a shortcut class created in RestAssured to store the session details of any response. The syntax will be with given() method '.filter(SessionFilter ClassObject)'. The same object can be used by other API to pass the session value.
 	* If we are sending the data in json format, we need to send value of Content-Type header as 'application/json'.
 	* If we are sending any file data, we need to send value of Content-Type header as 'multipart/form-data'.
+
+	Serialization
+		* In RestAssured context is a process of converting JavaObject into Request body.
+		* JavaObject is constructed with help of POJO (Plain Old Java Object) classes.
+		
+	Deserialization
+		* In RestAssured context is a process of converting back Response body into JavaObject.
+		
+		Tip: 
+			* For creating Serialization/Deserialization make sure for every '{' observed in complex json. Create a new class for that.
+			* In case of an array in json, declare it as an List in POJO class. So that it accepts multiple values.
+
+Key Notes:
+	API - Application Programming Interface
+	REST - Representational State Transfer
+	SOAP - Simple Object Access Protocol
 	
+	given()
+		* BaseURL - .baseUri(PassBaseURL)
+		* QueryParameters - .queryParam()
+		* PathParameters - .pathParam()
+		* Headers - .header()
+		* Body - .body()
+		* SessionFilter - .filter(). This will help to record the sessionID and pass the same in next subsequent APIcalls of given().
+			SessionFilter SF = new SessionFilter; 
+			.filter(SF)
+		* Attach attachments - .multiPart()
+			.multiPart(ParameterName, new File(FilePath))
+			When sending attachments in API, the header 'Content-Type' value should be 'multipart/form-data'.
+		* ByPass Https certification validation
+			.relaxedHTTPSValidation()
+		* SpecialCharacters are not allowed in RestAssured, the specialcharacters are converted into numericals. To stop this use below,
+			.urlEncodingEnabled(false)
+		* Expect response format
+			.expect().defaultParser(Parser.JSON)
+		 		As we have created response in according to Json response body. So we mention explicitly in given() to send response in Json format.
+		* RequestSpecBuilder
+			.spec(RequestSpecificationObject)
+		* Form Data Parameters
+			.param()
+			
+	when()
+		* httpMethods
+			.post(PassResourceURL), similar for other methods
+		* Get response in POJO class
+			.as(ClassName.class). The data should be saved in 'ClassName ReferenceVar'.
+	then()
+		* Validate Response StatusCode 
+			asserThat().statusCode(Code)
+		* Validate Body parameters
+			assertThat().body(ParameterName, equalTo(ParameterExpectedValue)). Here 'equalTo()' is hamcrest validation method.
+		* Extract Response
+			.extract().response()		
+		* Extract response in String
+			.extract().response().asString()		
+		* Extract response in JsonPath
+			.extract().response().jsonPath()
+		* Get response in POJO class
+			.extract().as(ClassName.class). The data should be saved in 'ClassName ReferenceVar'.
+		* ResponseSpecBuilder
+			.spec(ResponseSpecificationObject)
+			
+	SpecBuilders
+		* RequestSpecBuilder
+			RequestSpecification ReqS = new RequestSpecBuilder().log(LogDetail.ALL).setBaseUri("").......build();
+			Pass the above ReqS in given() method.
+		* ResponseSpecBuilder
+			ResponseSpecification ResS = new ResponseSpecBuilder().log(LogDetail.ALL).setBaseUri("").......build();
+			Pass the above ResS in then() method.
+	
+	Convert String to JsonPath
+		JsonPath JSVar = new JsonPath(StringValue);
+			JSVar.getString("BodyParameterName"). This will get the String value of that parameter.
+			JSVar.getInt("BodyParameterName"). This will get the Integer value of that parameter.
+			JSVar.getInt("ArrayName.size()"). This will provide the number of values present in that particular Array of JsonResponse. size() method only works on Array.
+	
+	Convert .json file (Static Payload) data to String
+		String Var = new String(Files.readAllBytes(Paths.get(JsonFilePath))). Provide the json file path with .json extension.
+
+	QueryParameters Value
+		* Pass via 'String, Object'
+		* Pass via 'Map<Key, Value>'. In case multiple QueryParameters.
+	PathParameters Value
+		1. First pass the desired path parameter syntax '{PathParamName}' in ResourceURL with curly brackets.
+		2. Then pass the value in .pathParam("PathParamName", "Value"). During run time these brackets '{}' are considered to retrieve path parameters value.
+	Headers Value
+		* Pass via 'String, Object'
+		* Pass via 'Map<Key, Value>'. In case multiple Headers.
+	Log Request/Response details
+		* Use 'log().all()' in given() & then()
+	
+	Body
+		1. Create Request Body by passing in 'body()' method
+			* Pass via 'String Variable'.
+			* Pass via 'Method with String return type'.
+			* Pass multiple different values in Request body i.e. Dynamic Request body. We can achieve this by using,
+				- TestNG @DataProvider
+				- Data from Excel sheet
+			* Take the complete payload from '.json' file. Convert to String and pass this String value in body().
+				String Var = new String(Files.readAllBytes(Paths.get(JsonFilePath)));
+			* Pass via 'HashMap<String, Object>'. Internally it will convert into Json format.
+			* Pass JavaObject
+				Serialization: In RestAssured context is a process of converting JavaObject into Request body.
+			
+		2. Parse Response Body
+			* Get response in 'String'
+				.extract().response().asString()
+			* Get response in 'JsonPath' and validate parameters using Json navigation. Can be used for complex json validations.
+				.extract().response().jsonPath()
+			* Get JavaObject
+				Deserialization: In RestAssured context is a process of converting back Response body into JavaObject.

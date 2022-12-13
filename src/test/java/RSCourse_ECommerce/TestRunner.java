@@ -8,7 +8,6 @@ import RSCourse_ECommerce.API.RSECom_DeleteOrder;
 import RSCourse_ECommerce.API.RSECom_DeleteProduct;
 import RSCourse_ECommerce.API.RSECom_GetOrders;
 import RSCourse_ECommerce.API.RSECom_Login;
-import RSCourse_ECommerce.POJO.RSECom_LoginReqPojo;
 import RSCourse_ECommerce.POJO.RSECom_LoginResPojo;
 
 public class TestRunner {

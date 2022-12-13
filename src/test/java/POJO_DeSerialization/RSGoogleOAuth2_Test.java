@@ -2,13 +2,6 @@ package POJO_DeSerialization;
 
 import static io.restassured.RestAssured.*;
 import java.util.HashMap;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -18,7 +11,6 @@ public class RSGoogleOAuth2_Test {
 	public String GoogleAPIBaseURI = "https://www.googleapis.com/oauth2/v4/token";
 	public String GetCourseDetailsBaseURI = "https://rahulshettyacademy.com/getCourse.php";
 	private String AccessCode_ResponseBody_AccessToken;
-	
 	
 	public void apiAccessCode (String CodeAuthentication) {
 		
@@ -47,7 +39,9 @@ public class RSGoogleOAuth2_Test {
 					queryParam("access_token", AccessCode_ResponseBody_AccessToken).
 					expect().defaultParser(Parser.JSON).
 				when().get().as(RSGoogleOAuth2_Pojo.class);    //Pass the main parent class in as() function
-		/* Above via POJO classes we are trying to get response body, we need to explicitly mention, expect().defaultParser(Parser.JSON) in given(). This converts JSON response body format into POJO class. 
+		/* 
+		 * Above via POJO classes we are trying to get response body, we need to explicitly mention, expect().defaultParser(Parser.JSON) in given().
+		 * As we have created response in according to Json response body. So we mention explicitly to send response in Json format. 
 		 */
 		
 		//Using POJO Parent Class object, we get all values in the JSON

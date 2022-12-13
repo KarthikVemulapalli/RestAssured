@@ -5,8 +5,6 @@ import static org.testng.Assert.assertEquals;
 import APIUtilityPack.API_ResuableMethods;
 import RSCourse_ECommerce.POJO.RSECom_LoginReqPojo;
 import RSCourse_ECommerce.POJO.RSECom_LoginResPojo;
-import io.restassured.parsing.Parser;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 public class RSECom_Login {

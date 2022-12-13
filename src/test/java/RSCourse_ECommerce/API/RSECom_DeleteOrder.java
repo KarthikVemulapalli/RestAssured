@@ -2,7 +2,6 @@ package RSCourse_ECommerce.API;
 
 import static io.restassured.RestAssured.*;
 import static org.testng.Assert.assertEquals;
-
 import APIUtilityPack.API_ResuableMethods;
 import io.restassured.path.json.JsonPath;
 

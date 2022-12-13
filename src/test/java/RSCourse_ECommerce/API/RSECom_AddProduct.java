@@ -2,10 +2,8 @@ package RSCourse_ECommerce.API;
 
 import static io.restassured.RestAssured.*;
 import static org.testng.Assert.assertEquals;
-
 import java.io.File;
 import java.util.HashMap;
-
 import APIUtilityPack.API_ResuableMethods;
 import RSCourse_ECommerce.POJO.RSECom_LoginResPojo;
 import io.restassured.path.json.JsonPath;

@@ -7,9 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
 import APIDataStore.RSMaps_Payload;
 
 
@@ -20,7 +18,8 @@ public class RSMaps_AddPlace {
 	
 	public void apiAddNewPlace() {
 		
-		/*SpecBuilders are nothing but common datainput/validation code where we can use in multiple api. This will be useful for code reusability.
+		/*
+		 * SpecBuilders are nothing but common data input/validation code where we can use in multiple api. This will be useful for code reusability.
 		 * For Request we use 'RequestSpecification
 		 * For Response we use 'ResponseSpecification
 		 * We can create methods of these with common datainput/validation ad place it in some utility class. These can be used during all API's testing.
@@ -31,7 +30,6 @@ public class RSMaps_AddPlace {
 		ResponseSpecification ResponseSpec = 
 				new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).log(LogDetail.ALL).build();		//After providing common validation we need to build the Response Specbuilder
 		
-		
 		//Breaking down into parts
 		RequestSpecification GivenReqSpec = given().spec(RequestSpec).
 			body(RSMaps_Payload.dataAddPlaceRequestPayload("(+91) 999 999 9999"));
@@ -39,7 +37,6 @@ public class RSMaps_AddPlace {
 		//Using the below response we can perform more validations
 		Response AddPlace_Response = 
 				GivenReqSpec.when().post(AddPlace_ResourceURI).then().spec(ResponseSpec).extract().response();
-		
 
 		//We can use this response object for further validations.
 		System.out.println("ResponseHeader Server - "+AddPlace_Response.getHeader("Server"));

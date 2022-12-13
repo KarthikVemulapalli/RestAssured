@@ -3,10 +3,8 @@ package RSCourse_ECommerce.API;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import APIUtilityPack.API_ResuableMethods;
 import io.restassured.path.json.JsonPath;
-
 import static io.restassured.RestAssured.*;
 import static org.testng.Assert.assertEquals;
 
