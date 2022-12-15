@@ -259,11 +259,15 @@ Key Notes:
 			
 	SpecBuilders
 		* RequestSpecBuilder
-			RequestSpecification ReqS = new RequestSpecBuilder().log(LogDetail.ALL).setBaseUri("").......build();
-			Pass the above ReqS in given() method.
+			- RequestSpecification ReqS = new RequestSpecBuilder().log(LogDetail.ALL).setBaseUri("").......build();
+				Pass the above ReqS in given() method.
+			- To generate logs in framework level
+				1. PrintStream psobj = new PrintStream(new FileOutputStream(LogPath));
+				2. Add '.addFilter(RequestLoggingFilter.logRequestTo(psobj))' to RequestSpecBuilder() for request details.
+				3. Add '.addFilter(ResponseLoggingFilter.logResponseTo(psobj)' to RequestSpecBuilder() for response details.
 		* ResponseSpecBuilder
-			ResponseSpecification ResS = new ResponseSpecBuilder().log(LogDetail.ALL).setBaseUri("").......build();
-			Pass the above ResS in then() method.
+			- ResponseSpecification ResS = new ResponseSpecBuilder().log(LogDetail.ALL).setBaseUri("").......build();
+				Pass the above ResS in then() method.
 	
 	Convert String to JsonPath
 		JsonPath JSVar = new JsonPath(StringValue);
