@@ -61,6 +61,7 @@ Terminologies
 	* Before testing an API, we need to get the API contract (details like Base URL, Resource, Parameters, http Method, JSON body, Expected response).
 	* Only for GET http no body is required. For remaining http request methods the body must be provided.
 
+
 POSTMAN:
 	Workspace - Personal, Public, Team, Private
 	Collections
@@ -206,6 +207,43 @@ Rest Assured:
 		Tip: 
 			* For creating Serialization/Deserialization make sure for every '{' observed in complex json. Create a new class for that.
 			* In case of an array in json, declare it as an List in POJO class. So that it accepts multiple values.
+
+
+GraphQL:
+	It is a query language on server-side runtime used for retrieving data from API's, Databases, systems etc.
+	This isn't tied to any database or storage engine and is instead backed by code.
+	Developer need to develop the graphQL using coding to retrieve data as per requirement.
+	
+	GraphQL Schema:
+		1. Type: This is similar to methods in java, we can call these types to get data
+		2. Fields: Output result fields which can be delivered by GraphQL
+			- Scalar: Fields which returns int or String or Boolean. (returns single)
+			- NonScalar: Fields which contain Scalar 'Fields' inside it. (returns multiple)
+		3. Arguments: We pass the data to get the result
+			- Scalar: Arguments which accepts int, String, Boolean (accepts single)
+			- NonScalar: Arguments which contain Scalar 'Arguments' inside it. (accepts multiple)
+	
+	* If the types/fields contain '!', this indicates it is a mandatory type/field.
+	* Once developer develops the GraphQL, in built there will be a GraphQL explorer gets created.
+		Example: https://rahulshettyacademy.com/gq/graphql
+	
+	* Sample GraphQL Query
+		query{											//query - Mandatory Syntax
+  			character(characterId: 8){					//character - 'Type'; characterId - 'Arguments' (Scalar)
+    			name									//name - 'Fields' (Scalar)
+  			}
+  			characters(filters: {name: "Karthik"} ){	//characters - 'Type'; filters - 'Arguments' (NonScalar); name - 'Arguments' (Scalar) 
+    			info {									//info - 'Fields' (NonScalar)
+    				count								//count - 'Fields' (Scalar)
+      				pages								//pages - 'Fields' (Scalar)
+    			}
+  			}
+		}
+	
+	* By default all GraphQL calls are POST.
+	* GraphQL RestAssured automation: Add header 'Content-type: application/json'. The query should be passed in Json format, retrieve the Json text from Network tab (developer tools).
+		The Json obtained from Network tab contains both Query & Variables in it.
+
 
 Key Notes:
 	API - Application Programming Interface
