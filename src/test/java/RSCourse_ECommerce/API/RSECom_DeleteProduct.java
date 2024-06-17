@@ -17,7 +17,7 @@ public class RSECom_DeleteProduct {
 		when().delete(Resource).
 		then().spec(API_ResuableMethods.buildResponse()).extract().response().jsonPath();
 		
-		System.out.println(DeleteProduct_Response.get("message"));
+		System.out.println("Message - "+DeleteProduct_Response.get("message"));
 		assertEquals(DeleteProduct_Response.get("message"), "Product Deleted Successfully");
 		
 		System.out.println("************************* DeleteProduct API Ends *************************");

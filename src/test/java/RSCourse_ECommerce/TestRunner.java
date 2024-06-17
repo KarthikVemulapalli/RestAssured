@@ -12,6 +12,17 @@ import RSCourse_ECommerce.POJO.RSECom_LoginResPojo;
 
 public class TestRunner {
 	
+	RSECom_Login loginObj = new RSECom_Login();
+	RSECom_LoginResPojo loginResPObj = new RSECom_LoginResPojo();
+	
+	RSECom_AddProduct AddProductObj = new RSECom_AddProduct();
+	RSECom_DeleteProduct DeleteProductOjb = new RSECom_DeleteProduct();
+	RSECom_AddToCart AddToCartObj = new RSECom_AddToCart();
+	
+	RSECom_CreateOrder CreateOrderobj = new RSECom_CreateOrder();
+	RSECom_GetOrders GetOrdersobj = new RSECom_GetOrders();
+	RSECom_DeleteOrder DeleteOrderobj = new RSECom_DeleteOrder();
+	
 	@BeforeSuite
 	public void BeforeSuite() {
 		System.out.println("RS ECommerce - Welcomes You");
@@ -20,8 +31,8 @@ public class TestRunner {
 	
 	@AfterSuite
 	public void AfterSuite() {
-		System.out.println("RS ECommerce - Thank You For Shopping");
 		System.out.println();
+		System.out.println("RS ECommerce - Thank You For Shopping");
 	}
 	
 	@BeforeTest
@@ -36,19 +47,7 @@ public class TestRunner {
 	
 	@Test
 	@Parameters({"ECommerceBaseURL"})
-	public void ExecutionFlow(@Optional("https://rahulshettyacademy.com/") String BaseURI) {
-		
-		RSECom_Login loginObj = new RSECom_Login();
-		RSECom_LoginResPojo loginResPObj = new RSECom_LoginResPojo();
-		
-		RSECom_AddProduct AddProductObj = new RSECom_AddProduct();
-		RSECom_DeleteProduct DeleteProductOjb = new RSECom_DeleteProduct();
-		RSECom_AddToCart AddToCartObj = new RSECom_AddToCart();
-		
-		RSECom_CreateOrder CreateOrderobj = new RSECom_CreateOrder();
-		RSECom_GetOrders GetOrdersobj = new RSECom_GetOrders();
-		RSECom_DeleteOrder DeleteOrderobj = new RSECom_DeleteOrder();
-		
+	public void ExecutionFlow(@Optional("https://rahulshettyacademy.com/") String BaseURI) {	
 		//Application Login
 		loginResPObj = loginObj.apiLogin(BaseURI);
 		//AddNewProduct in Customer Account
@@ -63,7 +62,6 @@ public class TestRunner {
 		GetOrdersobj.apiGetOrders(BaseURI, loginResPObj.getToken(), loginResPObj.getUserId());
 		//DeleteProduct from Customer Account
 		DeleteProductOjb.apiDeleteProduct(BaseURI, loginResPObj.getToken());
-		
 	}
 	
 }

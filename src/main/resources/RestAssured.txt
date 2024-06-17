@@ -6,41 +6,43 @@ API Definition: API is an Interface or Communication Protocol between client and
 Why API's are Required:
 	1.In Scenarios where Client and Server belongs to same organization are developed using same programming language, then there will be no compulsory in API usage. This Interaction will be secure because it belongs to same organization.
 	2.But scenarios where Client and Server are developed using different programming languages the API will be useful to minimize the programming language architecture interaction gap.
-	3.In scenarios where an organization want to interact with the Back End Code of other Organization to fetch details. API's aare useful to keep the code hidden and secured.
+	3.In scenarios where an organization want to interact with the Back End Code of other Organization to fetch details. API's are useful to keep the code hidden and secured.
 
 Note:
 	* API Automation with 'REST ASSURED' library using JAVA Programming Language.
 	* Web Automation with 'SELENIUM' library using JAVA Programming Language.
-	* Rest Assured is a library written in Java programming language. Rest Assured is mostly used used library for API Automation using Java.
+	* Rest Assured is a library written in Java programming language. Rest Assured is widely used library for API Automation using Java.
 	* All Applications Consists of Client(Front End UI), Server(Functionality Code) & Database.
 	* Using API's we can establish secure interaction with 3rd parties, fetch require data/information, perform various operations on database without having any Web UI.
-	* API is also clled as 'Middle Tier Layer' between client and server.
+	* API is also called as 'Middle Tier Layer' between client and server.
 	* All API's are stored in the Organisation's server. If specified API is hit by a third party, this API will call the Back End Code and sends response to the party requested.
 	* API is created in such a way, it is independent of any language. This is achieved by using 'http Protocol' request & response. 
 		Reason: http protocol is also independent of any language.
 	* The http protocol request & response of Client is sent & received in a specified format. The formats used are JSON or XML (JSON and XML are nothing but a representation of data in Specific format). These formats are independent of any language.
 		Reason: These JSON or XML formats are independent of any language because, every prograamming language has libraries to parse JSON and XML formats.
 	* Client request is sent in JSON or XML data format over http Protocol, this requests hits the API. Then the API will call the Back End Code and send response to client over http protocol.
-	* For third party organizations requires data/information of specified organization. The API's are exposed to the third party in order to get data/information.s
+	* For third party organizations requires data/information of specified organization. The API's are exposed to the third party in order to get data/information.
+
+	* API - application Programming Interface.
+	* Rest & SOAP are architectural designs for API creation.
+	* API request & response are done over http protocol.
 
 Architecture Flow:
 	1.Client (Front End) sends http protocol request and hits API. Here data is sent in JSON or XML.
 	2.API calls the specific method/ Server (code) 
 	3.The code/method fetches required data and sends to API {from backend database}
-	4.Then API returns back data to Client using http protocol response. The response is sent in JSON or XML.
+	4.Then API returns back data to Client using http protocol response. The response is received in JSON or XML.
 	5.The Client will parse the JSON or XML and display it to user in front-end (Every language have libraries to parse JSON and XML format data).
 
 Rest API (Rest WebServices) vs SOAP API (SOAP WebServices):
+	REST - Representational State Transfer: It is an architecture style for designing communication interfaces.
+	SOAP - Simple Object Access Protocol: It is a protocol for communication between applications.
+
 	1.Rest and SOAP are architectural designs standard in creating API's.
 	2.Rest is the latest and SOAP architectural designed is followed from ages.
-	3.SOAP design has many conditions, restrictions that provides tight authorizations, authentications. Whereas Rest is a light weight protocol which is flexible architecture.
+	3.SOAP design has many conditions, restrictions that provides tight authorizations, authentications. Whereas Rest is a light weight protocol which has flexible architecture.
 	4.SOAP API is more secured then Rest API.
 	5.Rest API is easy to Build & Maintain than SOAP API.
-
-Manual API Testing:
-	API - application Programming Interface.
-	Rest & SOAP are architectural designs for API creation.
-	API request & response are done over http protocol.
 
 Terminologies
 	End Point/Base URL - Where API is hosted.
@@ -54,12 +56,49 @@ Terminologies
 	Parameters:
 		Path Parameters - Point a specific resource (sub resource) within a collection. Add '/' to add sub resource.
 		Query Parameters - Filter set of resorces within a collection. Add '?' to add query parameter after resource. Query parameters are separated by '&'.
+		Form Parameters - Sending data in body using key-value pairs.
 	Request URL Basic Syntax - "Base URL + Resource + Query/Path Parameter"
 	Headers: Additional data we are sending to hit an API
-	* Path parameter acts as a sub Resource, where under resource we search for specific object.
-	* Query parameter used to fetch set of Objects. Acts like under specific resource we retrieve certain set of Objects.
+	* Path parameter acts as a sub Resource, where resource we search for specific object.
+	* Query parameter used to fetch set of Objects. Acts like specific resource we retrieve certain set of Objects.
 	* Before testing an API, we need to get the API contract (details like Base URL, Resource, Parameters, http Method, JSON body, Expected response).
 	* Only for GET http no body is required. For remaining http request methods the body must be provided.
+
+Server Codes & Description: 400 Series - User Errors; 500 Series - Server Errors
+	1.200 OK - Request Accepted
+	2.201 - Created
+	3.204 - No Content
+	4.400 - Bad Request
+	5.401 - UnAuthorized
+	6.403 - Forbidden
+	7.404 - Not Found
+	8.500 - International Server Error
+
+OAuth 2.0 Mechanism: It is an industry-standard protocol for Authorization. This comes with multiple Grant types.
+	Most commonly used grant types are 'Authorization Code' and 'Client Credentials'
+	Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
+
+	Grant Types
+		1. Client Credentials
+			Step1: Using Client Credentials we hit the authentication API, which in response gives us token. This token is used to access other API's.
+			Step2: The token is passed as header for the other microservices in application to get the details.
+		2. Password
+			Step1: Using password we hit the authentication API, which in response gives us token. This token is used to access other API's.
+			Step2: The token is passed as header for the other microservices in application to get the details.
+		3. Authorization Token (lets take bookmyshow login example)
+			Step1: After clicking on SignIn using google account to login into BookMyShow.
+			Step2: Google Login screen opens. User enter Google username and password. These details are passed to Google Authorization server along with below step3 details.
+			Step3: Along with user credentials BookMyShow hits the google authorization API using client ID (public) and Client ServerID (private).
+			Step4: Google Authorization API validates the BookMyShow client-server details and user details and returns an Authorization token to bookmyshow.
+			Step5: Using this Authorization token BookMyShow hits the resource API and takes the user details like username, DOB,....etc. Required to create/login into account.
+	
+	Flow Overview:
+		1.User Enter Login credentials of Gmail and Click submit. Request consists of ClientID (can be observed in URL) and Client SecretID.
+		2.Google give response with a temporary intermediate code.
+		3.Using this intermediate code BookMyShow request the profile details to create/login into account.
+		4.If this intermediate code is valid google share the customer profile details along with temporary Access token.
+		5.This access token gets expired within sometime/when user logs out. 
+		6.All the activities are performed in browser using this Access token.
 
 
 POSTMAN:
@@ -87,92 +126,87 @@ POSTMAN:
 	* Through JSON we can send files using http links, but we can send files from local system in JSON. 	
 
 
-OAuth 2.0: It is an industry-standard protocol for Authorization. This comes with multiple Grant types.
-	Most commonly used grant types are 'Authorization Code' and 'Client Credentials'
-	Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
+	Newman Reporting for POSTMAN - It is a command line collection runner for POSTMAN
+		Installation:
+		1.Install Node.js in Windows System (this will install Node.js & npm)
+		Open Command Prompt.
+		2.To check current node version installed in system use command 'node -v'
+		3.Install newman 'npm install -g newman'.
+		4.Install newman advanced HTML reporting 'npm install -g newman-reporter-htmlextra'
 	
-	Flow Overview:
-		1.User Enter Login credentials of Gmail and Click submit. Request consists of ClientID (can be observed in URL) and Client SecretID.
-		2.Google give response with a temporary intermediate code.
-		3.Using this intermediate code BookMyShow request the profile details to create/login into account.
-		4.If this intermediate code is valid google share the customer profile details along with temporary Access token.
-		5.This access token gets expired within sometime/when user logs out. 
-		6.All the activities are performed in browser using this Access token.
+		Example: To generate newman advanced HTML reporting using command prompt (for other additional function commands please refer newman-reporter-htmlextra documentation)
+			command - newman run "Collection Path Stored in System" -e "Environment Path Stored in System" --folder "Execute Specific Folder in Collection" -r htmlextra --reporter-htmlextra-browserTitle "HTML Browser Title" --reporter-htmlextra-Title "HTML Report Title"
+				'-e' 					-> Used to provide Environment Variables
+				'-g' 					-> Used to provide global variables
+				'--folder'				-> Used to run specific folder in Collection
+				'-r htmlextra'				-> For advanced HTML reporting
+				'--reporter-htmlextra-browserTitle'	-> Browser Title Name
+				'--reporter-htmlextra-Title'		-> Report Title Heading
+		Note: Execute the above mention command in specific directory in command prompt, so that there will be a new folder 'newman' gets created. Inside this newman folder you can find the html report.
 
+	POSTMAN Integration With Jenkins:
+		Installation:
+		1.Navigate to Jenkins official website, download 'Generic Java Package (.war)'
+		2.For installation/running jenkins use following command in cmd. Run the command where jenkins.war file is present 
+			java -jar jenkins.war
+		3.Wait till success message displayed 'Completed initialization' message.
+		3.In browser launch the 'localhost:8080' (Jenkins will launch in default port i.e. 8080)
+		4.Configure all the suggested plugins through browser (this may take time).
 
-Newman Reporting - It is a command line collection runner for POSTMAN
-	Installation:
-	1.Install Node.js in Windows System (this will install Node.js & npm)
-	Open Command Prompt.
-	2.To check current node version installed in system use command 'node -v'
-	3.Install newman 'npm install -g newman'.
-	4.Install newman advanced HTML reporting 'npm install -g newman-reporter-htmlextra'
-	
-	Example: To generate newman advanced HTML reporting using command prompt (for other additional function commands please refer newman-reporter-htmlextra documentation)
-		command - newman run "Collection Path Stored in System" -e "Environment Path Stored in System" --folder "Execute Specific Folder in Collection" -r htmlextra --reporter-htmlextra-browserTitle "HTML Browser Title" --reporter-htmlextra-Title "HTML Report Title"
-			'-e' 					-> Used to provide Environment Variables
-			'-g' 					-> Used to provide global variables
-			'--folder'				-> Used to run specific folder in Collection
-			'-r htmlextra'				-> For advanced HTML reporting
-			'--reporter-htmlextra-browserTitle'	-> Browser Title Name
-			'--reporter-htmlextra-Title'		-> Report Title Heading
-	Note: Execute the above mention command in specific directory in command prompt, so that there will be a new folder 'newman' gets created. Inside this newman folder you can find the html report.
-
-
-Integration With Jenkins:
-	Installation:
-	1.Navigate to Jenkins official website, download 'Generic Java Package (.war)'
-	2.For installation/running jenkins use following command in cmd. Run the command where jenkins.war file is present 
-		java -jar jenkins.war
-	3.Wait till success message displayed 'Completed initialization' message.
-	3.In browser launch the 'localhost:8080' (Jenkins will launch in default port i.e. 8080)
-	4.Configure all the suggested plugins through browser (this may take time).
-
-
-Team Collaboration (Similar to Git):
-	1.If multiple people want to make modify/add changes in a collection.
-	2.Create a 'fork'(branch) to the parent collection and provide access to the specific person.
-	3.After the person modify/add changes. He creates a 'Pull Request' to merge changes to parent collection. During creating pull request we can assign Reviewer.
-	4.Reviewer takes a look and accepts the pull request.
-	5.Once approved the merge option enables in the collection fork. The person added the changes then merge the code to the parent collection.
-	6.During merge we get an option of keeping the fork/deleting the fork.
-
-
-Server Codes & Description: 400 Series - User Errors; 500 Series - Server Errors
-	1.200 OK - Request Accepted
-	2.201 - Created
-	3.204 - No Content
-	4.400 - Bad Request
-	5.401 - UnAuthorized
-	6.403 - Forbidden
-	7.404 - Not Found
-	8.500 - International Server Error
+	POSTMAN Team Collaboration (Similar to Git):
+		1.If multiple people want to make modify/add changes in a collection.
+		2.Create a 'fork'(branch) to the parent collection and provide access to the specific person.
+		3.After the person modify/add changes. He creates a 'Pull Request' to merge changes to parent collection. During creating pull request we can assign Reviewer.
+		4.Reviewer takes a look and accepts the pull request.
+		5.Once approved the merge option enables in the collection fork. The person added the changes then merge the code to the parent collection.
+		6.During merge we get an option of keeping the fork/deleting the fork.
 
 
 Rest Assured:
 	* RestAssured is a library to automate API testing using Java programming language.
 	* Main focus on RestAssured is about creating the request payload to hit the API. And parsing the response payload to validate the API.
 	* Dependencies required - RestAssured, Hamcrest
-	* The complete testing depends on three static methods given(), when(), then(). From package 'import static io.restassured.RestAssured.*'
+	* The complete testing depends on three static methods given(), when(), then(). 
+		From package 'import static io.restassured.RestAssured.*'
 		- given() we provide all the input data
 		- when() submit the API and get the response of API
 		- then() is used for assigning assert validations.
 	* Validation is done using TestNG assertions/ Hamcrest matchers.
-
-	Ways we create our API request payload:
-		1.Send it directly as String variable
-		2.Send it via String return type method (We have option to pass dynamic values to desired API members).
-		3.Send data in request payload using TestNG @dataProvider annotation.
-		4.Send it via '.json' (data stored in Json format) file convert to bytes format and finally converting it to String.
-			Ex: String AddBook_StringResponse = new String(Files.readAllBytes(Paths.get(AddBook_JsonFilePath)));
-		5.Serialization - Sending Java class object as request payload in given() method, this is constructed with support of the POJO (Plain Old Java Object) Classes.
-			POJO Class creation - we create the API members as private variables and create Setter & Getter methods (Internally java converts the class object into Json format).
-		  
-	Ways we validate the API response payload:
-		1.We get the response of API using given(), when() static methods in String (asString()) format. Convert this string into Json and with help of Json path we retrieve values and validate.
-		2.Directly get the response of API using given(), when() static methods in Json (jsonPath()) format. With help of Json path we retrieve values and validate.
-		3.De-Serialization - Create POJO Class and Response Payload will be provided as Class Object, we can get the API k values using getter() methods.
-			
+	
+	Steps to operate API using RestAssured:
+		Step1: Set base URI: 'RestAssured.baseURI'
+		Step2: given() static method
+			* given() static method returns RequestSpecification object.
+			* Provide required query/path parameters in given().
+			* Provide required headers in given().
+				If we provide request body in JSON, we need to add header 'Content-Type: application/json'
+			* log().all() helps to log all the request details sent
+		Step3: Provide body() in given(), Creation of API request payload, below are the ways we create our API request payload:
+			1.Send it directly as String variable
+				In case eclipse is not adding '\' formatting for Json. Go to windows->Preferences->Editor->Typing->Select Checkobx 'Escape text when passing into a string literal'
+			2.Send it via String return type method (We have option to pass dynamic values to desired API members).
+			3.Send data in request payload using TestNG @dataProvider annotation.
+			4.Send it via '.json' (data stored in Json format) file. The file gets converted to bytes format and then finally converting it into String.
+				Ex: String AddBook_StringResponse = new String(Files.readAllBytes(Paths.get(JsonFilePath)));
+			5.Serialization - Sending Java class object as request payload in given() method, this is constructed with support of the POJO (Plain Old Java Object) Classes.
+				POJO Class creation - we create the API members as private variables and create Setter & Getter methods (Internally java converts the class object into Json format).
+		Step4: when() static method, Assign API call using methods
+			post(), get(), delete(), put() - all these methods take resource as parameter
+		Step6: then()
+			log().all() helps to log all the request details sent
+			assertThat()
+				.statusCode(200), To validate status code
+				.body("", equalTo("")), to validate key value in json body. equalTo() method is from hamcrest jar.
+				.header("", ""), to validate the headers value
+			extract()
+				response().asString(), gives the output in string format
+		Step7: Ways we validate the API response payload:
+			1.We get the response of API using given(), when() static methods in String format using 'asString()'. Convert this string into Json and with help of Json path we retrieve values and validate.
+				convert string to JSON using 'JsonPath obj = new JsonPath(stringvalue)'
+				obj.getString(JsonPath), provide json path to get the response value
+			2.Directly get the response of API using given(), when() static methods in Json (jsonPath()) format. With help of Json path we retrieve values and validate.
+			3.De-Serialization - Create POJO Class and Response Payload will be provided as Class Object, we can get the API k values using getter() methods.
+		
 	* If we observe for Serialization setter() methods are handy to pass value. In De-Serialization getter() methods are handy to retrieve values.
 	* Additional dependencies/libraries in classpath required for POJO class method testing,
 		For JSON - Jackson, Jackson2, Gson or Johnzon
@@ -191,7 +225,7 @@ Rest Assured:
 		* Most commonly used grant types are 'Authorization Code' and 'Client Credentials'
 			Example: Logging In to BookMyShow application using 'SignIn with Google' or 'SignIn with Facebook' options. To achieve this OAuth2.0 is implemented in backend.
 	
-	* RestAssured will not accept special characters converts them into numerical, so we need to use function 'urlEncodingEnabled()' this will make accept as Special characters.
+	* RestAssured will not accept special characters converts them into numerical, so we need to use function 'urlEncodingEnabled()' under given() this will make accept as Special characters.
 	* To ByPass SSL Certifications using RestAssured, we can call a method 'relaxedHTTPSValidation' under given().
 	* SessionFilter is a shortcut class created in RestAssured to store the session details of any response. The syntax will be with given() method '.filter(SessionFilter ClassObject)'. The same object can be used by other API to pass the session value.
 	* If we are sending the data in json format, we need to send value of Content-Type header as 'application/json'.
@@ -200,9 +234,15 @@ Rest Assured:
 	Serialization
 		* In RestAssured context is a process of converting JavaObject into Request body.
 		* JavaObject is constructed with help of POJO (Plain Old Java Object) classes.
+		* Create object of the parent class and assign all values using the object and send that in the body() method.
+			Ex: GetCoursesRequest gcrobj = new GetCoursesRequest();
+			    given.body(gcrobj)
 		
 	Deserialization
 		* In RestAssured context is a process of converting back Response body into JavaObject.
+		* Get the response in form of class object, by using as() method.
+			Ex: GetCoursesResponse gcrsobj = given().queryParam().body()....when().post("").as(GetCoursesResponse.class);
+			    By using gcrsobj get the response values by using getter() methods.
 		
 		Tip: 
 			* For creating Serialization/Deserialization make sure for every '{' observed in complex json. Create a new class for that.
@@ -210,9 +250,14 @@ Rest Assured:
 
 
 GraphQL:
-	It is a query language on server-side runtime used for retrieving data from API's, Databases, systems etc.
-	This isn't tied to any database or storage engine and is instead backed by code.
-	Developer need to develop the graphQL using coding to retrieve data as per requirement.
+	Example GraphQL - https://rahulshettyacademy.com/gq/graphql
+	
+	* GraphQL is used to improve the application performance architecture.
+	* It is a query language on server-side runtime used for retrieving data from API's, Databases, systems etc.
+	* This acts like a query which provides specific server data what developer asked for. Unlike API's which provide a huge chunk of data in JSON format.
+	* This isn't tied to any database or storage engine and is instead backed by code.
+	* Developer need to develop the graphQL using coding to retrieve data as per requirement.
+	* While creating a GraphQL server, by default an UI is created GraphQL explorer.
 	
 	GraphQL Schema:
 		1. Type: This is similar to methods in java, we can call these types to get data
@@ -224,25 +269,34 @@ GraphQL:
 			- NonScalar: Arguments which contain Scalar 'Arguments' inside it. (accepts multiple)
 	
 	* If the types/fields contain '!', this indicates it is a mandatory type/field.
-	* Once developer develops the GraphQL, in built there will be a GraphQL explorer gets created.
+	* Once developer develops the GraphQL, in built there will be a GraphQL explorer (documentation) gets created.
 		Example: https://rahulshettyacademy.com/gq/graphql
+	* By default all GraphQL calls are POST.
+	* GraphQL RestAssured automation: Add header 'Content-type: application/json'. 
+		As POSTMAN will automatically convert GraphQL query to JSON internally. But RestAssured won't so we have to convert that.
+		The query should be passed in Json format. Simply we can retrieve the Json text from Network tab (developer tools).
+		The Json obtained from Network tab contains both Query & Variables in it.
 	
-	* Sample GraphQL Query
-		query{											//query - Mandatory Syntax
-  			character(characterId: 8){					//character - 'Type'; characterId - 'Arguments' (Scalar)
-    			name									//name - 'Fields' (Scalar)
+	** GraphQL Query
+		Query keyword is used to get data
+		query{									//query - Mandatory Syntax to get data
+  			character(characterId: 8) {					//character - 'Type'; characterId - 'Arguments' (Scalar)
+    				name							//name - 'Fields' (Scalar)
   			}
-  			characters(filters: {name: "Karthik"} ){	//characters - 'Type'; filters - 'Arguments' (NonScalar); name - 'Arguments' (Scalar) 
-    			info {									//info - 'Fields' (NonScalar)
-    				count								//count - 'Fields' (Scalar)
-      				pages								//pages - 'Fields' (Scalar)
-    			}
+  			characters(filters: {name: "Karthik"}) {			//characters - 'Type'; filters - 'Arguments' (NonScalar); name - 'Arguments' (Scalar) 
+    				info {							//info - 'Fields' (NonScalar)
+    					count						//count - 'Fields' (Scalar)
+      					pages						//pages - 'Fields' (Scalar)
+    				}
   			}
 		}
 	
-	* By default all GraphQL calls are POST.
-	* GraphQL RestAssured automation: Add header 'Content-type: application/json'. The query should be passed in Json format, retrieve the Json text from Network tab (developer tools).
-		The Json obtained from Network tab contains both Query & Variables in it.
+	** GraphQL Mutation
+		mutation {								//mutation - Mandatory Syntax to add/edit data
+			createLocation(Location:{name:"Test", type:"South"}) {		//createLocation - 'Type'; Location (NonScalar), Name (Scalar)
+				id							//id - returns the id after creating new location
+			}
+		}
 
 
 Key Notes:
@@ -256,6 +310,7 @@ Key Notes:
 		* PathParameters - .pathParam()
 		* Headers - .header()
 		* Body - .body()
+		* FormParameters - .formParameter()
 		* SessionFilter - .filter(). This will help to record the sessionID and pass the same in next subsequent APIcalls of given().
 			SessionFilter SF = new SessionFilter; 
 			.filter(SF)
@@ -269,8 +324,10 @@ Key Notes:
 		* Expect response format
 			.expect().defaultParser(Parser.JSON)
 		 		As we have created response in according to Json response body. So we mention explicitly in given() to send response in Json format.
-		* RequestSpecBuilder
-			.spec(RequestSpecificationObject)
+		* RequestSpecBuilder (returns RequestSpecification)
+			RequestSpecification RequestSpecificationObject = new RequestSpecBuilder().setBaseURI().log(LogDetail.ALL).....build();
+				* for request specification the methods starts with set..() methods
+			.spec(RequestSpecificationObject), this object contains the baseURI, headers, path/query parameters
 		* Form Data Parameters
 			.param()
 			
@@ -293,7 +350,9 @@ Key Notes:
 		* Get response in POJO class
 			.extract().as(ClassName.class). The data should be saved in 'ClassName ReferenceVar'.
 		* ResponseSpecBuilder
-			.spec(ResponseSpecificationObject)
+			ResponseSpecification ResponseSpecificationObject = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).log(LogDetail.ALL).....build();
+				* for response specification the methods starts with expect..() methods
+			.spec(ResponseSpecificationObject), this object contains the response body, headers...
 			
 	SpecBuilders
 		* RequestSpecBuilder
@@ -320,8 +379,8 @@ Key Notes:
 		* Pass via 'String, Object'
 		* Pass via 'Map<Key, Value>'. In case multiple QueryParameters.
 	PathParameters Value
-		1. First pass the desired path parameter syntax '{PathParamName}' in ResourceURL with curly brackets.
-		2. Then pass the value in .pathParam("PathParamName", "Value"). During run time these brackets '{}' are considered to retrieve path parameters value.
+		1. First pass the desired path parameter syntax '{PathParamName}' in ResourceURL under when() with curly brackets.
+		2. Then pass the value in .pathParam("PathParamName", "Value") under given(). During run time these brackets '{}' are considered to retrieve path parameters value.
 	Headers Value
 		* Pass via 'String, Object'
 		* Pass via 'Map<Key, Value>'. In case multiple Headers.
